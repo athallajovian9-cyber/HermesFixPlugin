@@ -1,0 +1,43 @@
+{
+  "name": "hermes-fix-plugin",
+  "version": "1.0.0",
+  "description": "Fixes Hermes Agent weaknesses: context death spiral, config bugs, silent failures, security vulnerabilities, skill issues",
+  "main": "plugin.py",
+  "keywords": ["hermes", "plugin", "security", "hardening", "fix"],
+  "author": "Athalla Jovian",
+  "license": "MIT",
+  "hermes": {
+    "plugin": true,
+    "minVersion": "0.12.0",
+    "hooks": [
+      "on_startup",
+      "on_context_update",
+      "on_tool_dispatch",
+      "on_skill_load",
+      "on_subagent_spawn",
+      "on_subagent_complete",
+      "on_evaluation",
+      "on_shutdown"
+    ],
+    "commands": [
+      "hermes context health",
+      "hermes context check-death-spiral",
+      "hermes config validate --strict",
+      "hermes skill audit --full",
+      "hermes skill audit-quality --all",
+      "hermes security scan --full",
+      "hermes security scan-injection --all",
+      "hermes doctor --full",
+      "hermes recovery emergency"
+    ]
+  },
+  "dependencies": {},
+  "peerDependencies": {
+    "hermes-agent": ">=0.12.0"
+  },
+  "scripts": {
+    "test": "python -m pytest plugin_test.py -v",
+    "validate": "python plugin.py doctor",
+    "install": "python install.py"
+  }
+}
